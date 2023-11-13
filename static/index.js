@@ -22,7 +22,7 @@ async function analyze_entities(text) {
         "text": text
     }
     const response = _fetch("analyze_entities", data)
-    return response
+    return response['entities']
 }
 
 // fecth로 /chat 호출 (POST)
@@ -31,7 +31,7 @@ async function chat(text) {
         "text": text
     }
     const response = _fetch("chat", data)
-    return response
+    return response['chat']
 }
 
 // fecth로 /blur_faces 호출 (POST)
@@ -41,7 +41,7 @@ async function blur_faces(img) {
         "img": img
     }
     const response = _fetch("blur_faces", data)
-    return response
+    return response['blurred-img']
 }
 
 // fecth로 /blur_objs 호출 (POST)
@@ -51,7 +51,7 @@ async function blur_objs(img) {
         "img": img
     }
     const response = _fetch("blur_objs", data)
-    return response
+    return response['blurred-img']
 }
 
 
