@@ -3,6 +3,8 @@ from os.path import join, abspath
 
 # 설정값
 PORT = 31313
+DOMAIN = "http://tr33.r-e.kr"
+
 
 # 루트
 ROOT_DIR = os.path.dirname(abspath(__file__))
