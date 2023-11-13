@@ -240,7 +240,7 @@ async function onSendBtnClick() {
     l(value.value)
     logMsg(value.value, "right")
 
-    value.value = ""
+
 
     let entities = await analyze_entities(value)
     let highlightenText = highlightEntities(value, entities)
@@ -257,6 +257,8 @@ async function onSendBtnClick() {
     let res = await chat(anonymizedText)
     logMsg(res, "left")
     l(res)
+
+    value.value = ""
 }
 
 
