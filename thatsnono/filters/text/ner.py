@@ -50,7 +50,7 @@ def analyze_entities(text):
     # print(f"Language of the text: {response.language_code}")
     return response
 
-def extract_entities(entities):
+def extract_entities(text, entities):
     extracted_entities = []
     for entity in entities:
         content = entity.mentions[0].text.content

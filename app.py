@@ -1,5 +1,5 @@
+import os
 from flask import Flask, send_file, request, jsonify
-from flask_cors import CORS
 from flask_sslify import SSLify  # SSL 적용을 위한 모듈
 
 import val
@@ -12,7 +12,6 @@ from thatsnono.openai import chat
 # import os
 
 app = Flask(__name__)
-CORS(app)  # 모든 origin에 대해 CORS를 허용합니다.
 
 
 @app.route('/')
@@ -38,7 +37,7 @@ def on_analyze_entities():
 
     text = data['text']
     r = analyze_entities(text)
-    extracted_entities = extract_entities(r.entities)
+    extracted_entities = extract_entities(text, r.entities)
     response = {"entities": extracted_entities}
     return jsonify(response), 200
 
@@ -82,8 +81,8 @@ def on_blur_objs():
 
 def setup():
     # 구글 API 키 설정
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = val.GOOGLE_CLOUD_API_KEY
-
+    # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = val.GOOGLE_CLOUD_API_KEY
+    pass
 def setup_ssl():
     ssl_home = '/etc/letsencrypt/live/kisia-hackathon.r-e.kr/'
     global ssl_fullchain
@@ -100,6 +99,7 @@ if __name__ == "__main__":
 
     # 설정
     setup()
+    setup_ssl()
 
     # 서버 시작
     app.run(debug=True, host='0.0.0.0', port=val.PORT)
