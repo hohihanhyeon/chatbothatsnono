@@ -102,11 +102,9 @@ if __name__ == "__main__":
 
     # 설정
     setup()
-    print(chat("안녕"))
-
-    # setup_ssl()
+    setup_ssl()
 
     # 서버 시작
-    # app.run(debug=True, host='0.0.0.0', port=val.PORT)
+    app.run(debug=True, host='0.0.0.0', port=val.PORT)
 
     print("서버 종료")
