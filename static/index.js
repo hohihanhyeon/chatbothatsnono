@@ -183,11 +183,13 @@ function getTrashData(type) {
 // }
 
 function anonymizeEntities(text, privates, entities) {
+    l(text, privates, entities)
     let result = "";
     let lastEnd = 0;
 
     for (let entity of entities) {
         if (!privates.includes(entity.type)) {
+            console.log("not private", entity.type)
             continue
         }
 
@@ -210,6 +212,7 @@ function anonymizeEntities(text, privates, entities) {
 
     // 마지막 엔티티 이후의 텍스트를 추가
     result += text.substring(lastEnd);
+    l("result: ", result)
     return result;
 }
 
@@ -226,7 +229,7 @@ document.addEventListener("DOMContentLoaded", onLoad)
 function onLoad() {
     sendBtn().addEventListener("click", onSendBtnClick)
     checkBtn().addEventListener("click", onCheckBtnClick)
-    sendImgBtn().addEventListener("click", onSendImgBtnClick)
+    // sendImgBtn().addEventListener("click", onSendImgBtnClick)
 }
 
 async function onSendBtnClick() {
