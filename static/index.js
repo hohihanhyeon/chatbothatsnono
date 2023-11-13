@@ -249,6 +249,10 @@ async function onSendBtnClick() {
 
     // 익명화
     let privates = ["PERSON"]
+    l("before")
+    l('value.value: ', value.value)
+    l('privates: ', privates)
+    l('entities: ', entities)
     let anonymizedText = anonymizeEntities(value.value, privates, entities)
     l("anonymizedText", anonymizedText)
 
