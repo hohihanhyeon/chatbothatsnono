@@ -147,7 +147,7 @@ let trashDateCount = {
 }
 let privates = ["PERSON"]
 
-function trashData(type) {
+function getTrashData(type) {
     switch (type) {
         case "LOCATION":
             return `위치(${trashDateCount.LOCATION++})`
@@ -199,7 +199,7 @@ function anonymizeEntities(text, privates, entities) {
         // 엔티티를 감싸는 span 태그 추가
         // let origin = text.substring(start, end)
         // trashdata 생성
-        let trashData = trashData(entity.type)
+        let trashData = getTrashData(entity.type)
         // origin2trash에 매핑
         origin2trash[entity.content] = trashData
         result += trashData
