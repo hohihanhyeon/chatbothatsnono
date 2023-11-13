@@ -15,6 +15,7 @@ def face_locs(img):
     """
     얼굴 위치를 찾아주는 함수
     :param img: 이미지 (base64 형식)
+
     """
     openApiURL = "http://aiopen.etri.re.kr:8000/FaceDeID"
     accessKey = val.ETRI_ACCESS_KEY

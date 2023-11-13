@@ -10,26 +10,24 @@ from PIL import Image
 import val
 from thatsnono.filters.image.face_detection import face_locs
 
-def blur_faces(img_base64, format):
+def blur(locs, img_base64, format):
     """
     얼굴을 블러 처리합니다.
     :param img_base64: 이미지 (base64 형식, 앞의 header는 제외)
     :param format: 이미지 형식 (ex: png, jpeg)
     """
-    # 얼굴 위치 리스트 가져오기
-    faces = face_locs(img_base64)
 
     # 이미지를 OpenCV 형식으로 변환합니다. (블러 처리를 위해)
     image = base64_to_cv2(img_base64)
 
     # 인식된 얼굴 영역에 블러 처리를 적용합니다.
-    for (x, y, w, h) in faces:
+    for (x, y, w, h) in locs:
         face_roi = image[y:y + h, x:x + w]
         blurred_face = cv2.GaussianBlur(face_roi, (99, 99), 30)
         image[y:y + h, x:x + w] = blurred_face
 
     # 결과 이미지를 저장합니다.
-    cv2.imwrite(f'blurred_faces.{format}', image)
+    cv2.imwrite(f'blurred.{format}', image)
 
     # 결과 이미지를 base64 형식으로 변환합니다.
     result = cv2_to_base64(image, format)
@@ -70,6 +68,8 @@ if __name__ == '__main__':
     img = 'ppl.jpg'
     format = 'jpg'
     img_base64 = raw_to_base64(img)
-    blur_faces(img_base64, format)
+    locs = face_locs(img_base64)
+    # print(locs)
+    blur(locs, img_base64, format)
 
 
