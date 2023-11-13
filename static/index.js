@@ -183,7 +183,10 @@ function getTrashData(type) {
 // }
 
 function anonymizeEntities(text, privates, entities) {
-    l(text, privates, entities)
+    l('text' , text)
+    l('privates', privates)
+    l('entities', entities)
+
     let result = "";
     let lastEnd = 0;
 
