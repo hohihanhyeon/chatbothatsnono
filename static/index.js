@@ -1,4 +1,4 @@
-import {DOMAIN, PORT, URL} from "./commons";
+import {DOMAIN, PORT, URL, logMsg} from "./commons.js";
 
 function l(m) {
     console.log(m);
@@ -10,6 +10,10 @@ function text() {
 
 function sendBtn() {
     return document.getElementById("sendBtn");
+}
+
+function checkBtn() {
+    return document.getElementById("checkBtn");
 }
 
 // fecth로 analyze_entities 호출 (POST)
@@ -95,10 +99,6 @@ function highlightEntities(text, entities) {
     result += text.substring(lastEnd);
     return result;
 }
-
-const highlightedText = highlightEntities("안녕 나는 이정한이야", [{start: 3, end: 5}, {start: 7, end: 9}]);
-console.log(highlightedText);
-
 
 function setSendBtnDisable(toggle) {
     sendBtn().disabled = toggle;
@@ -193,4 +193,28 @@ function sendMsg() {
 }
 
 
+// document 로드됬을 떄
+document.addEventListener("DOMContentLoaded", onLoad)
 
+function onLoad() {
+    sendBtn().addEventListener("click", onSendBtnClick)
+    checkBtn().addEventListener("click", onCheckBtnClick)
+}
+
+function onSendBtnClick() {
+    let value = text()
+    logMsg(value.value, "right")
+    value.value = ""
+}
+
+
+function onCheckBtnClick() {
+    let value = text().value
+    let entities = analyze_entities(value)
+    let highlightenText = highlightEntities(value, entities)
+    text().innerHTML = highlightenText
+
+    // 익명화
+    let privates = ["PERSON"]
+    let anonymizedText = anonymizeEntities(value, privates, entities)
+}
