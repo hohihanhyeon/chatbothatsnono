@@ -5,3 +5,4 @@ Pillow
 opencv-python
 openai
 flask-cors
+flask-sslify

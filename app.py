@@ -1,6 +1,6 @@
-import os
-
 from flask import Flask, send_file, request, jsonify
+from flask_cors import CORS
+from flask_sslify import SSLify  # SSL 적용을 위한 모듈
 
 import val
 from thatsnono.filters.image.blur import raw_to_base64, blur
@@ -8,10 +8,10 @@ from thatsnono.filters.image.face_detection import face_locs
 from thatsnono.filters.image.object_detection import detect_objs, filter_objs
 from thatsnono.filters.text.ner import analyze_entities, extract_entities
 from thatsnono.openai import chat
-from flask_cors import CORS
+
+# import os
 
 app = Flask(__name__)
-
 CORS(app)  # 모든 origin에 대해 CORS를 허용합니다.
 
 
@@ -84,6 +84,15 @@ def setup():
     # 구글 API 키 설정
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = val.GOOGLE_CLOUD_API_KEY
 
+def setup_ssl():
+    ssl_home = '/etc/letsencrypt/live/kisia-hackathon.r-e.kr/'
+    global ssl_fullchain
+    ssl_fullchain = ssl_home + 'fullchain.pem'
+    global ssl_privkey
+    ssl_privkey = ssl_home + 'privkey.pem'
+
+    # SSL 적용
+    return SSLify(app)
 
 # 메인
 if __name__ == "__main__":
