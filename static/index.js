@@ -242,9 +242,9 @@ async function onSendBtnClick() {
 }
 
 
-function onCheckBtnClick() {
+async function onCheckBtnClick() {
     let value = text().value
-    let entities = analyze_entities(value)
+    let entities = await analyze_entities(value)
     let highlightenText = highlightEntities(value, entities)
     text().innerHTML = highlightenText
 
