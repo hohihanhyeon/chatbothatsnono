@@ -11,4 +11,12 @@ def chat(text):
       ]
     )
 
-    return response['choices'][0]['message']['content']
+    return response.choices[0].message.content
+
+# main
+if __name__ == "__main__":
+    import os, val
+    os.environ['OPENAI_API_KEY'] = val.OPENAI_API_KEY
+
+    text = "안녕하세요"
+    print(chat(text))

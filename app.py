@@ -7,7 +7,7 @@ from thatsnono.filters.image.blur import raw_to_base64, blur
 from thatsnono.filters.image.face_detection import face_locs
 from thatsnono.filters.image.object_detection import detect_objs, filter_objs
 from thatsnono.filters.text.ner import analyze_entities, extract_entities
-from thatsnono.openai import chat
+from thatsnono.openai_chat import chat
 
 # import os
 
@@ -102,9 +102,11 @@ if __name__ == "__main__":
 
     # 설정
     setup()
-    setup_ssl()
+    print(chat("안녕"))
+
+    # setup_ssl()
 
     # 서버 시작
-    app.run(debug=True, host='0.0.0.0', port=val.PORT)
+    # app.run(debug=True, host='0.0.0.0', port=val.PORT)
 
     print("서버 종료")
