@@ -59,16 +59,40 @@ async function blur_objs(img) {
 }
 
 
+// async function _fetch(task, data) {
+//     // let url = `${URL}/${task}`
+//     const response = await fetch(`/${task}`, {
+//         method: "POST",
+//         body: JSON.stringify(data),
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     })
+//     return await response.json();
+// }
+
 async function _fetch(task, data) {
-    // let url = `${URL}/${task}`
-    const response = await fetch(`/${task}`, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
+    const url = `/${task}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-    })
-    return await response.json();
+
+        const responseData = await response.json();
+        console.log(responseData);
+        return responseData
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 /*
