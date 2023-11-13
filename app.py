@@ -19,6 +19,16 @@ def index():
     return send_file('index.html')
 
 
+@app.route('/test', methods=['POST'])
+def on_test():
+    data = request.get_json()
+    print(f"/test: {data}")
+
+    user_msg = data['text']
+    msg = chat(user_msg)
+    response = {"text": msg}
+    return jsonify(response), 200
+
 @app.route('/chat', methods=['POST'])
 def on_chat():
     data = request.get_json()
