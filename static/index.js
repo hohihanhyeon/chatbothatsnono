@@ -16,12 +16,16 @@ function checkBtn() {
     return document.getElementById("checkBtn");
 }
 
+function sendImgBtn() {
+    return document.getElementById("sendImg");
+}
+
 // fecth로 analyze_entities 호출 (POST)
 async function analyze_entities(text) {
     let data = {
         "text": text
     }
-    const response = _fetch("analyze_entities", data)
+    const response = await _fetch("analyze_entities", data)
     return response['entities']
 }
 
@@ -30,8 +34,8 @@ async function chat(text) {
     let data = {
         "text": text
     }
-    const response = _fetch("chat", data)
-    return response['chat']
+    const response = await _fetch("chat", data)
+    return response['text']
 }
 
 // fecth로 /blur_faces 호출 (POST)
@@ -40,7 +44,7 @@ async function blur_faces(img) {
     let data = {
         "img": img
     }
-    const response = _fetch("blur_faces", data)
+    const response =await  _fetch("blur_faces", data)
     return response['blurred-img']
 }
 
@@ -50,7 +54,7 @@ async function blur_objs(img) {
     let data = {
         "img": img
     }
-    const response = _fetch("blur_objs", data)
+    const response = await _fetch("blur_objs", data)
     return response['blurred-img']
 }
 
@@ -61,7 +65,7 @@ async function _fetch(task, data) {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json; charset=utf-8"
+            'Content-Type': 'application/json'
         }
     })
     return response.json();
@@ -199,12 +203,19 @@ document.addEventListener("DOMContentLoaded", onLoad)
 function onLoad() {
     sendBtn().addEventListener("click", onSendBtnClick)
     checkBtn().addEventListener("click", onCheckBtnClick)
+    sendImgBtn().addEventListener("click", onSendImgBtnClick)
 }
 
-function onSendBtnClick() {
+async function onSendBtnClick() {
     let value = text()
+    l(value.value)
     logMsg(value.value, "right")
     value.value = ""
+
+    // chat 호출
+    let res = await chat(value)
+    logMsg(res, "left")
+    l(res)
 }
 
 
@@ -217,4 +228,8 @@ function onCheckBtnClick() {
     // 익명화
     let privates = ["PERSON"]
     let anonymizedText = anonymizeEntities(value, privates, entities)
+}
+
+function onSendImgBtnClick() {
+
 }

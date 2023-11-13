@@ -39,6 +39,7 @@ def on_analyze_entities():
     r = analyze_entities(text)
     extracted_entities = extract_entities(text, r.entities)
     response = {"entities": extracted_entities}
+    print(response)
     return jsonify(response), 200
 
 
