@@ -83,6 +83,8 @@ def on_blur_objs():
 def setup():
     # 구글 API 키 설정
     # os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = val.GOOGLE_CLOUD_API_KEY
+    # openai API 키 설정
+    os.environ['OPENAI_API_KEY'] = val.OPENAI_API_KEY
     pass
 def setup_ssl():
     ssl_home = '/etc/letsencrypt/live/kisia-hackathon.r-e.kr/'
