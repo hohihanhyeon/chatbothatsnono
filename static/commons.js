@@ -1,4 +1,5 @@
-export const DOMAIN = "tr33.r-e.kr"
+// export const DOMAIN = "tr33.r-e.kr"
+export const DOMAIN = "veneer-kisia.r-e.kr"
 // export const DOMAIN = "localhost"
 export const PORT = 31313
 export const URL = `http://${DOMAIN}:${PORT}`

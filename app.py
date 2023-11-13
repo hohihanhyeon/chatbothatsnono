@@ -8,8 +8,11 @@ from thatsnono.filters.image.face_detection import face_locs
 from thatsnono.filters.image.object_detection import detect_objs, filter_objs
 from thatsnono.filters.text.ner import analyze_entities, extract_entities
 from thatsnono.openai import chat
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app)  # 모든 origin에 대해 CORS를 허용합니다.
 
 
 @app.route('/')
