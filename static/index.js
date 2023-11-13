@@ -60,15 +60,15 @@ async function blur_objs(img) {
 
 
 async function _fetch(task, data) {
-    let url = `${URL}/${task}`
-    const response = await fetch(url, {
+    // let url = `${URL}/${task}`
+    const response = await fetch(`/${task}`, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json'
         }
     })
-    return response.json();
+    return await response.json();
 }
 
 /*
@@ -110,7 +110,6 @@ function setSendBtnDisable(toggle) {
 
 
 /*
-
 이름 -> 홍길동(1), 홍길동(2)
 전화번호 -> 010-1234-5678
 이메일 -> gildong@naver.com

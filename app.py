@@ -25,7 +25,7 @@ def on_test():
     print(f"/test: {data}")
 
     user_msg = data['text']
-    msg = chat(user_msg)
+    msg = 'test'
     response = {"text": msg}
     return jsonify(response), 200
 
