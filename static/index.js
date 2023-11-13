@@ -233,10 +233,22 @@ async function onSendBtnClick() {
     let value = text()
     l(value.value)
     logMsg(value.value, "right")
+
     value.value = ""
 
+    let entities = await analyze_entities(value)
+    let highlightenText = highlightEntities(value, entities)
+    text().innerHTML = highlightenText
+    logMsg(highlightenText, "right")
+
+    // 익명화
+    let privates = ["PERSON"]
+    let anonymizedText = anonymizeEntities(value, privates, entities)
+    l("anonymizedText", anonymizedText)
+
+
     // chat 호출
-    let res = await chat(value)
+    let res = await chat(anonymizedText)
     logMsg(res, "left")
     l(res)
 }
@@ -251,6 +263,7 @@ async function onCheckBtnClick() {
     // 익명화
     let privates = ["PERSON"]
     let anonymizedText = anonymizeEntities(value, privates, entities)
+    l("anonymizedText", anonymizedText)
 }
 
 function onSendImgBtnClick() {
