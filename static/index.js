@@ -252,19 +252,19 @@ async function onSendBtnClick() {
 
     let entities = await analyze_entities(textValue)
     let highlightenText = highlightEntities(textValue, entities)
-    l('highlightenText: ', highlightenText)
+    console.log('highlightenText: ', highlightenText)
     text().innerHTML = highlightenText
-    l('text().innerHTML: ', text().innerHTML)
+    console.log('text().innerHTML: ', text().innerHTML)
     logMsg(highlightenText, "right")
 
     // 익명화
     let privates = ["PERSON"]
-    l("before")
-    l('value.value: ', textValue)
-    l('privates: ', privates)
-    l('entities: ', entities)
+    console.log("before")
+    console.log('value.value: ', textValue)
+    console.log('privates: ', privates)
+    console.log('entities: ', entities)
     let anonymizedText = anonymizeEntities(textValue, getSelectedText(), entities)
-    l("anonymizedText", anonymizedText)
+    console.log("anonymizedText", anonymizedText)
 
 
     // chat 호출
