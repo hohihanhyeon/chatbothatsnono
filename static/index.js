@@ -48,9 +48,10 @@ async function chat(text) {
 
 // fecth로 /blur_faces 호출 (POST)
 // img는 base64 인코딩된 이미지
-async function blur_faces(img) {
+async function blur_faces(img, format='jpg') {
     let data = {
-        "img": img
+        "img": img,
+        "format": format
     }
     const response = await _fetch("blur_faces", data)
     return response['blurred-img']
