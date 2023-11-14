@@ -35,7 +35,7 @@ def blur(locs, img_base64, format):
 
 
 def base64_to_cv2(base64_image_string):
-    print(base64_image_string[:30])
+    # print(base64_image_string[:30])
     # Base64 문자열을 디코딩하여 바이너리 데이터로 변환합니다.
     image_data = base64.b64decode(base64_image_string)
 

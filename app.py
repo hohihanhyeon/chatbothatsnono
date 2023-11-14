@@ -63,9 +63,9 @@ def on_blur_faces():
     img = data['img']
     format = data['format']
 
-    img_base64 = raw_to_base64(img)
-    locs = face_locs(img_base64)
-    result = blur(locs, img_base64, format)
+    # img_base64 = raw_to_base64(img)
+    locs = face_locs(img)
+    result = blur(locs, img, format)
     response = {"blurred-img": result}
     return jsonify(response), 200
 
@@ -81,10 +81,10 @@ def on_blur_objs():
     format = data['format']
     objs = data['objs']  # 블러처리 할 객체들
 
-    img_base64 = raw_to_base64(img)
-    locs = detect_objs(img_base64, format)
+    # img_base64 = raw_to_base64(img)
+    locs = detect_objs(img, format)
     locs_to_blur = filter_objs(locs, objs)
-    result = blur(locs_to_blur, img_base64, format)
+    result = blur(locs_to_blur, img, format)
 
     response = {"blurred-img": result}
     return jsonify(response), 200
