@@ -17,7 +17,7 @@ function checkBtn() {
 }
 
 function sendImgBtn() {
-    return document.getElementById("sendImg");
+    return document.getElementById("sendImageBtn");
 }
 
 // fecth로 analyze_entities 호출 (POST)
@@ -350,4 +350,56 @@ export function revealEntities(element) {
 
     // 익명화된 글로 변경
     p.innerText = preAnonymizedText
+}
+
+
+// 이미지
+// 버튼 요소와 파일 입력 요소를 가져옵니다.
+const fileInput = document.getElementById('fileInput');
+
+// 버튼을 클릭할 때 파일 입력(input) 요소를 클릭합니다.
+sendImgBtn().addEventListener('click', () => fileInput.click());
+
+// 파일이 선택되면 해당 파일을 업로드합니다.
+fileInput.addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(event) {
+    const file = event.target.files[0]; // 선택한 파일
+    // 파일 포맷 추출
+    const fileName = file.name;
+    const fileFormat = fileName.split('.')[1].toLowerCase();
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // 서버로 파일을 업로드합니다.
+    if (file) {
+        // FileReader를 사용하여 이미지 파일을 읽어들임
+        const reader = new FileReader();
+
+        async function onImgLoad() {
+            // 이미지 채팅방에 출력
+            // logImage(reader.result, "right");
+            // 이미지 전송
+            // sendImage(reader.result, sender, "service");
+
+            // 얼굴 블러
+            let blurredFace = await blur_faces(reader.result)
+            logImage(blurredFace, "right");
+        }
+
+        reader.onloadend = onImgLoad
+        reader.readAsDataURL(file); // 이미지를 데이터 URL로 읽어옴
+    } else {
+        alert('이미지를 선택하세요.');
+    }
+}
+
+
+export function logImage(img) {
+    let imgElement = document.createElement('img');
+    imgElement.src = img; // 이미지 URL 설정
+    imgElement.style.maxWidth = '50%'; // 대화 메세지 div 너비의 50%까지만 허용
+    const tagHTML = imgElement.outerHTML;
+    logMsg(tagHTML, "right");
 }
