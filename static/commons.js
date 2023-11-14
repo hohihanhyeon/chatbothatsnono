@@ -19,7 +19,7 @@ export function logMsg(msg, loc) {
           </div>
         </div>`
     } else if (loc === "right") {
-        template = `<div class="outgoing_msg" onclick="revealEntities(this)>
+        template = `<div class="outgoing_msg" onclick="revealEntities(this)">
       <div class="sent_msg">
         <p>${msg}</p>
         <span class="time_date"> 11:01 AM    |    June 9</span> </div>
