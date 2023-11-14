@@ -259,7 +259,7 @@ async function onSendBtnClick() {
     let textValue = value.value
 
     let entities = await analyze_entities(textValue)
-    let highlightenText = highlightEntities(textValue, entities)
+    let highlightenText = highlightEntities(textValue, entities, getSelectedText())
     // console.log('highlightenText: ', highlightenText)
     text().innerHTML = highlightenText
     // console.log('text().innerHTML: ', text().innerHTML)
