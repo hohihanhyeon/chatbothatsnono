@@ -1,3 +1,5 @@
+import { revealEntities} from "./index";
+
 // export const DOMAIN = "tr33.r-e.kr"
 export const DOMAIN = "kisia-hackathon.r-e.kr"
 // export const DOMAIN = "localhost"
