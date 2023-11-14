@@ -237,21 +237,22 @@ function onLoad() {
 
 async function onSendBtnClick() {
     let value = text()
-    l(value.value)
-    logMsg(value.value, "right")
+    let textValue = value.value
+    l(textValue)
+    logMsg(textValue, "right")
 
-    let entities = await analyze_entities(value.value)
-    let highlightenText = highlightEntities(value, entities)
+    let entities = await analyze_entities(textValue)
+    let highlightenText = highlightEntities(textValue, entities)
     text().innerHTML = highlightenText
     logMsg(highlightenText, "right")
 
     // 익명화
     let privates = ["PERSON"]
     l("before")
-    l('value.value: ', value.value)
+    l('value.value: ', textValue)
     l('privates: ', privates)
     l('entities: ', entities)
-    let anonymizedText = anonymizeEntities(value.value, privates, entities)
+    let anonymizedText = anonymizeEntities(textValue, privates, entities)
     l("anonymizedText", anonymizedText)
 
 
