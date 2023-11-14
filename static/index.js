@@ -25,8 +25,14 @@ async function analyze_entities(text) {
     let data = {
         "text": text
     }
-    const response = await _fetch("analyze_entities", data)
-    return response['entities']
+    let response = await _fetch("analyze_entities", data)
+    let entities = response['entities']
+
+    // entity start 기준 정렬
+    entities.sort(function (a, b) {
+        return a.start - b.start;
+    });
+    return entities
 }
 
 // fecth로 /chat 호출 (POST)
@@ -143,7 +149,8 @@ function setSendBtnDisable(toggle) {
 let origin2trash = {}
 let trashDateCount = {
     "LOCATION": 0,
-    "PERSON": 0
+    "PERSON": 0,
+    "ORGANIZATION": 0,
 }
 
 function initlets() {
@@ -193,10 +200,6 @@ function getTrashData(type) {
 // }
 
 function anonymizeEntities(text, privates, entities) {
-    l('anonymizeEntities, text', text)
-    l('anonymizeEntities, privates', privates)
-    l('anonymizeEntities, entities', entities)
-
     let result = "";
     let lastEnd = 0;
 
@@ -248,7 +251,6 @@ function onLoad() {
 async function onSendBtnClick() {
     let value = text()
     let textValue = value.value
-    l(textValue)
 
     let entities = await analyze_entities(textValue)
     let highlightenText = highlightEntities(textValue, entities)
@@ -258,11 +260,7 @@ async function onSendBtnClick() {
     logMsg(highlightenText, "right")
 
     // 익명화
-    let privates = ["PERSON"]
-    console.log("before")
-    console.log('value.value: ', textValue)
-    console.log('privates: ', privates)
-    console.log('entities: ', entities)
+    console.log('textValue: ', textValue)
     let anonymizedText = anonymizeEntities(textValue, getSelectedText(), entities)
     console.log("anonymizedText", anonymizedText)
 
