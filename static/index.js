@@ -252,7 +252,9 @@ async function onSendBtnClick() {
 
     let entities = await analyze_entities(textValue)
     let highlightenText = highlightEntities(textValue, entities)
+    l('highlightenText: ', highlightenText)
     text().innerHTML = highlightenText
+    l('text().innerHTML: ', text().innerHTML)
     logMsg(highlightenText, "right")
 
     // 익명화
