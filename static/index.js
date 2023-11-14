@@ -217,6 +217,8 @@ function anonymizeEntities(text, privates, entities) {
 
         const start = entity.start;
         const end = entity.end;
+        console.log('entity.type: ', entity.type)
+        console.log('entity.content: ', entity.content)
 
         // 엔티티 시작 전까지의 텍스트를 추가
         result += text.substring(lastEnd, start);
@@ -238,11 +240,11 @@ function anonymizeEntities(text, privates, entities) {
     return result;
 }
 
-function sendMsg() {
-    // 보내기전에 anonymizeEntities를 호출해서 origin2trash를 업데이트한다.
-    let entities = analyze_entities(text());
-    let anonymizedText = anonymizeEntities(text(), privates, entities)
-}
+// function sendMsg() {
+//     // 보내기전에 anonymizeEntities를 호출해서 origin2trash를 업데이트한다.
+//     let entities = analyze_entities(text());
+//     let anonymizedText = anonymizeEntities(text(), privates, entities)
+// }
 
 
 // document 로드됬을 떄
@@ -270,29 +272,28 @@ async function onSendBtnClick() {
     let anonymizedText = anonymizeEntities(textValue, getSelectedText(), entities)
     console.log("anonymizedText", anonymizedText)
 
-
     // chat 호출
     let res = await chat(anonymizedText)
-
 
     logMsg(res, "left")
     l(res)
 
+    // 입력칸 초기화
     value.value = ""
 }
 
 
-async function onCheckBtnClick() {
-    let value = text().value
-    let entities = await analyze_entities(value)
-    let highlightenText = highlightEntities(value, entities)
-    text().innerHTML = highlightenText
-
-    // 익명화
-    let privates = ["PERSON"]
-    let anonymizedText = anonymizeEntities(value, privates, entities)
-    l("anonymizedText", anonymizedText)
-}
+// async function onCheckBtnClick() {
+//     let value = text().value
+//     let entities = await analyze_entities(value)
+//     let highlightenText = highlightEntities(value, entities)
+//     text().innerHTML = highlightenText
+//
+//     // 익명화
+//     let privates = ["PERSON"]
+//     let anonymizedText = anonymizeEntities(value, privates, entities)
+//     l("anonymizedText", anonymizedText)
+// }
 
 function onSendImgBtnClick() {
 
