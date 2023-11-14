@@ -61,7 +61,9 @@ async function blur_faces(img, format = 'jpg') {
 // img는 base64 인코딩된 이미지
 async function blur_objs(img) {
     let data = {
-        "img": img
+        "img": img,
+        "format": "jpg",
+        "objs": getSelectedImg()
     }
     const response = await _fetch("blur_objs", data)
     return response['blurred-img']
@@ -408,7 +410,8 @@ function handleFileSelect(event) {
             // sendImage(reader.result, sender, "service");
 
             // 얼굴 블러
-            let blurredFace = await blur_faces(reader.result)
+            // let blurredFace = await blur_faces(reader.result)
+            let blurredFace = await blur_objs(reader.result)
             logImage(blurredFace, "right");
         }
 
