@@ -458,7 +458,12 @@ function getLastOutgoingMsg() {
 function onRevealBtnClick() {
     // 마지막 outgoing_msg에는 revealText()를 대입
     let lastOutgoingMsg = getLastOutgoingMsg()
-    lastOutgoingMsg.innerHTML = preAnonymizedText
+    let template = `<div class="outgoing_msg" onclick="revealEntities(this)">
+      <div class="sent_msg">
+        <p>${preAnonymizedText}</p>
+        <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+    </div>`
+    lastOutgoingMsg.innerHTML = template
 }
 
 function onRecoverBtnClick() {
