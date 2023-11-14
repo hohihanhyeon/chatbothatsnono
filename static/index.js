@@ -183,9 +183,9 @@ function getTrashData(type) {
 // }
 
 function anonymizeEntities(text, privates, entities) {
-    l('text' , text)
-    l('privates', privates)
-    l('entities', entities)
+    l('anonymizeEntities, text' , text)
+    l('anonymizeEntities, privates', privates)
+    l('anonymizeEntities, entities', entities)
 
     let result = "";
     let lastEnd = 0;
@@ -239,8 +239,6 @@ async function onSendBtnClick() {
     let value = text()
     l(value.value)
     logMsg(value.value, "right")
-
-
 
     let entities = await analyze_entities(value)
     let highlightenText = highlightEntities(value, entities)

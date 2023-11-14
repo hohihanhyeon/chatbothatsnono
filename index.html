@@ -1,10 +1,13 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <html>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
           rel="stylesheet">
@@ -36,27 +39,68 @@
                     </div>
                 </div>
                 <div class="inbox_chat">
-                    <div class="chat_list active_chat">
-                        <div class="chat_people">
-                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                       alt="sunil"></div>
-                            <div class="chat_ib">
-                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                                <p>Test, which is a new approach to have all solutions
-                                    astrology under one roof.</p>
-                            </div>
+                    <!--                    <div class="chat_list active_chat">-->
+                    <!--                        <div class="chat_people">-->
+                    <!--                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
+                    <!--                                                       alt="sunil"></div>-->
+                    <!--                            <div class="chat_ib">-->
+                    <!--                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
+                    <!--                                <p>Test, which is a new approach to have all solutions-->
+                    <!--                                    astrology under one roof.</p>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="chat_list">-->
+                    <!--                        <div class="chat_people">-->
+                    <!--                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"-->
+                    <!--                                                       alt="sunil"></div>-->
+                    <!--                            <div class="chat_ib">-->
+                    <!--                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>-->
+                    <!--                                <p>Test, which is a new approach to have all solutions-->
+                    <!--                                    astrology under one roof.</p>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div id="textboxes" class="text-center">
+                        <h3>텍스트</h3>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox_person">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                이름</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox_location" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                위치</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox_date" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                날짜</label>
                         </div>
                     </div>
-                    <div class="chat_list">
-                        <div class="chat_people">
-                            <div class="chat_img"><img src="https://ptetutorials.com/images/user-profile.png"
-                                                       alt="sunil"></div>
-                            <div class="chat_ib">
-                                <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                                <p>Test, which is a new approach to have all solutions
-                                    astrology under one roof.</p>
-                            </div>
+                    <div id="imgboxes" class="text-center">
+                        <h3>이미지</h3>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox_face">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">
+                                얼굴</label>
                         </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox_bicycle" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                자전거</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="checkbox_dog" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">
+                                강아지</label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="grade">
+                        <h1 class="text-center">당신의 보안 등급</h1>
+                        <h1 class="text-center" id="level">A</h1>
                     </div>
                 </div>
             </div>
@@ -90,9 +134,9 @@
                 </div>
             </div>
             <button id="checkBtn" class="msg_send_btn" type="button">체크하기<i class="fa fa-paper-plane-o"
-                                                                                   aria-hidden="true"></i></button>
-<!--            <button id="sendImg" class="msg_send_btn" type="button">이미지 업로드<i class="fa fa-paper-plane-o"-->
-<!--                                                                                   aria-hidden="true"></i></button>-->
+                                                                            aria-hidden="true"></i></button>
+            <!--            <button id="sendImg" class="msg_send_btn" type="button">이미지 업로드<i class="fa fa-paper-plane-o"-->
+            <!--                                                                                   aria-hidden="true"></i></button>-->
         </div>
 
 
