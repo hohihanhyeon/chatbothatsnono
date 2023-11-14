@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", onLoad)
 
 function onLoad() {
     sendBtn().addEventListener("click", onSendBtnClick)
-    checkBtn().addEventListener("click", onCheckBtnClick)
+    // checkBtn().addEventListener("click", onCheckBtnClick)
     // sendImgBtn().addEventListener("click", onSendImgBtnClick)
 }
 
