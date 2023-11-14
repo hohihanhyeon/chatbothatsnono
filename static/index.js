@@ -28,12 +28,12 @@ async function analyze_entities(text) {
     let response = await _fetch("analyze_entities", data)
     let entities = response['entities']
 
-    console.log("before entities: ", entities)
+    // console.log("before entities: ", entities)
     // entity start 기준 정렬
     entities.sort(function (a, b) {
         return a.start - b.start;
     });
-    console.log("after entities: ", entities)
+    // console.log("after entities: ", entities)
     return entities
 }
 
@@ -116,11 +116,15 @@ entities = [
 
 엔티티를 각각 가져와서 start, end에 해당하는 부분을 highlight(background-color: yellow) 해준다.
  */
-function highlightEntities(text, entities) {
+function highlightEntities(text, entities, privates) {
     let result = "";
     let lastEnd = 0;
 
     for (let entity of entities) {
+        // 만약 entity type이 privates에 포함안되있으면 하이라이트 하지 않는다.
+        if (!privates.includes(entity.type)) {
+            continue
+        }
         const start = entity.start;
         const end = entity.end;
 
@@ -256,9 +260,9 @@ async function onSendBtnClick() {
 
     let entities = await analyze_entities(textValue)
     let highlightenText = highlightEntities(textValue, entities)
-    console.log('highlightenText: ', highlightenText)
+    // console.log('highlightenText: ', highlightenText)
     text().innerHTML = highlightenText
-    console.log('text().innerHTML: ', text().innerHTML)
+    // console.log('text().innerHTML: ', text().innerHTML)
     logMsg(highlightenText, "right")
 
     // 익명화
