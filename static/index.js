@@ -48,7 +48,7 @@ async function chat(text) {
 
 // fecth로 /blur_faces 호출 (POST)
 // img는 base64 인코딩된 이미지
-async function blur_faces(img, format='jpg') {
+async function blur_faces(img, format = 'jpg') {
     let data = {
         "img": img,
         "format": format
@@ -257,6 +257,12 @@ function onLoad() {
     sendBtn().addEventListener("click", onSendBtnClick)
     // checkBtn().addEventListener("click", onCheckBtnClick)
     // sendImgBtn().addEventListener("click", onSendImgBtnClick)
+    document.getElementById("revealBtn").addEventListener("click", onRevealBtnClick)
+    document.getElementById("recoverBtn").addEventListener("click", onRecoverBtnClick)
+}
+
+function levelElem() {
+    return document.getElementById("level")
 }
 
 async function onSendBtnClick() {
@@ -285,6 +291,23 @@ async function onSendBtnClick() {
 
     // 입력칸 초기화
     value.value = ""
+
+    // level 설정
+    // origin2trash 개수가 1개이면 = A, 2개이면 = B, 3개이면 = C
+    let len = Object.keys(origin2trash).length
+    switch (len) {
+        case 1:
+            levelElem().innerHTML = "A"
+            break
+        case 2:
+            levelElem().innerHTML = "B"
+            break
+        case 3:
+            levelElem().innerHTML = "C"
+            break
+        default:
+            levelElem().innerHTML = "D"
+    }
 }
 
 
@@ -403,4 +426,43 @@ export function logImage(img) {
     imgElement.style.maxWidth = '50%'; // 대화 메세지 div 너비의 50%까지만 허용
     const tagHTML = imgElement.outerHTML;
     logMsg(tagHTML, "right");
+}
+
+function trash2origin(text) {
+    // value을 text에서 찾아서 key값으로 바꾼다.
+    for (let key in origin2trash) {
+        text = text.replace(origin2trash[key], key)
+    }
+    return text
+}
+
+function getLastIncomingMsg() {
+    var msgHistory = document.getElementById('msglist');
+    var incomingMsgs = msgHistory.getElementsByClassName('incoming_msg');
+
+    // Get the last incoming_msg element
+    var lastIncomingMsg = incomingMsgs[incomingMsgs.length - 1];
+    return lastIncomingMsg
+}
+
+// Function to get the last outgoing_msg element
+function getLastOutgoingMsg() {
+    var msgHistory = document.getElementById('msglist');
+    var outgoingMsgs = msgHistory.getElementsByClassName('outgoing_msg');
+
+    // Get the last outgoing_msg element
+    var lastOutgoingMsg = outgoingMsgs[outgoingMsgs.length - 1];
+    return lastOutgoingMsg
+}
+
+function onRevealBtnClick() {
+    // 마지막 outgoing_msg에는 revealText()를 대입
+    let lastOutgoingMsg = getLastOutgoingMsg()
+    lastOutgoingMsg.innerHTML = preAnonymizedText
+}
+
+function onRecoverBtnClick() {
+    // 마지막 ingoing_msg에는 trash2origin()을 대입
+    let lastIncomingMsg = getLastIncomingMsg()
+    lastIncomingMsg.innerHTML = trash2origin(lastIncomingMsg.innerHTML)
 }

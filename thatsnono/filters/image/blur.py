@@ -27,7 +27,7 @@ def blur(locs, img_base64, format):
         image[y:y + h, x:x + w] = blurred_face
 
     # 결과 이미지를 저장합니다.
-    cv2.imwrite(f'blurred.{format}', image)
+    cv2.imwrite(f'blurred-ppl.{format}', image)
 
     # 결과 이미지를 base64 형식으로 변환합니다.
     result = cv2_to_base64(image, format)

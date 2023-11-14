@@ -29,14 +29,17 @@
 <!-- <p>-->
 <!--        일반 텍스트 <span style="background-color: yellow">특정 글자</span> 다시 일반 텍스트-->
 <!--    </p>-->
-<p id="textToChange" class="clickable-text" onclick="changeText()">Click me to change text!</p>
-<script>
-    function changeText() {
-        var element = document.getElementById("textToChange");
-        element.innerHTML = "Text has changed!";
-        element.style.color = "red"; // Optional: Change text color after clicking
-    }
-</script>
+<!--<p id="textToChange" class="clickable-text" onclick="changeText()">Click me to change text!</p>-->
+<!--<script>-->
+<!--    function changeText() {-->
+<!--        var element = document.getElementById("textToChange");-->
+<!--        element.innerHTML = "Text has changed!";-->
+<!--        element.style.color = "red"; // Optional: Change text color after clicking-->
+<!--    }-->
+<!--</script>-->
+
+<h1><button id="revealBtn"></button>실제로 보내진 데이터</h1>
+<h1><button id="recoverBtn"></button>챗봇에게 받은 데이터 복원</h1>
 <div class="container">
     <h3 class=" text-center">Messaging</h3>
     <div class="messaging">
@@ -131,7 +134,6 @@
             </div>
             <div class="mesgs">
                 <div class="msg_history" id="msglist">
-
                     <div class="incoming_msg">
                         <div class="incoming_msg_img"></div>
                         <div class="received_msg">
