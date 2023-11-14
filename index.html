@@ -16,11 +16,27 @@
     <script src="./static/index.js" type="module"></script>
     <script src="./static/commons.js" type="module"></script>
     <title>챗봇아 그건 안되</title>
+
+    <style>
+        .clickable-text {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 <!-- <p>-->
 <!--        일반 텍스트 <span style="background-color: yellow">특정 글자</span> 다시 일반 텍스트-->
 <!--    </p>-->
+<p id="textToChange" class="clickable-text" onclick="changeText()">Click me to change text!</p>
+<script>
+    function changeText() {
+        var element = document.getElementById("textToChange");
+        element.innerHTML = "Text has changed!";
+        element.style.color = "red"; // Optional: Change text color after clicking
+    }
+</script>
 <div class="container">
     <h3 class=" text-center">Messaging</h3>
     <div class="messaging">
@@ -66,17 +82,17 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="checkbox_person">
                             <label class="form-check-label" for="flexSwitchCheckDefault">
-                                이름</label>
+                                PERSON</label>
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="checkbox_location" checked>
                             <label class="form-check-label" for="flexSwitchCheckChecked">
-                                위치</label>
+                                LOCATION</label>
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="checkbox_date" checked>
                             <label class="form-check-label" for="flexSwitchCheckChecked">
-                                날짜</label>
+                                ORGANIZATION</label>
                         </div>
                     </div>
                     <div id="imgboxes" class="text-center">
@@ -84,7 +100,7 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="checkbox_face">
                             <label class="form-check-label" for="flexSwitchCheckDefault">
-                                얼굴</label>
+                                FACE</label>
                         </div>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="checkbox_bicycle" checked>

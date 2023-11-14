@@ -44,7 +44,7 @@ async function blur_faces(img) {
     let data = {
         "img": img
     }
-    const response =await  _fetch("blur_faces", data)
+    const response = await _fetch("blur_faces", data)
     return response['blurred-img']
 }
 
@@ -119,7 +119,7 @@ function highlightEntities(text, entities) {
         // 엔티티 시작 전까지의 텍스트를 추가
         result += text.substring(lastEnd, start);
         // 엔티티를 감싸는 span 태그 추가
-        result += `<span style="background-color: yellow">${text.substring(start, end)}</span>`;
+        result += `<span style="background-color: #FF0000">${text.substring(start, end)}</span>`;
         // 다음 시작 위치 갱신
         lastEnd = end;
     }
@@ -145,7 +145,15 @@ let trashDateCount = {
     "LOCATION": 0,
     "PERSON": 0
 }
-let privates = ["PERSON"]
+
+function initlets() {
+    origin2trash = {}
+    trashDateCount = {
+        "LOCATION": 0,
+        "PERSON": 0,
+        "ORGANIZATION": 0,
+    }
+}
 
 function getTrashData(type) {
     switch (type) {
@@ -153,6 +161,8 @@ function getTrashData(type) {
             return `위치(${trashDateCount.LOCATION++})`
         case "PERSON":
             return `이름(${trashDateCount.PERSON++})`
+        case "ORGANIZATION":
+            return `조직(${trashDateCount.ORGANIZATION++})`
     }
 }
 
@@ -183,7 +193,7 @@ function getTrashData(type) {
 // }
 
 function anonymizeEntities(text, privates, entities) {
-    l('anonymizeEntities, text' , text)
+    l('anonymizeEntities, text', text)
     l('anonymizeEntities, privates', privates)
     l('anonymizeEntities, entities', entities)
 
@@ -239,7 +249,6 @@ async function onSendBtnClick() {
     let value = text()
     let textValue = value.value
     l(textValue)
-    logMsg(textValue, "right")
 
     let entities = await analyze_entities(textValue)
     let highlightenText = highlightEntities(textValue, entities)
@@ -252,12 +261,14 @@ async function onSendBtnClick() {
     l('value.value: ', textValue)
     l('privates: ', privates)
     l('entities: ', entities)
-    let anonymizedText = anonymizeEntities(textValue, privates, entities)
+    let anonymizedText = anonymizeEntities(textValue, getSelectedText(), entities)
     l("anonymizedText", anonymizedText)
 
 
     // chat 호출
     let res = await chat(anonymizedText)
+
+
     logMsg(res, "left")
     l(res)
 
@@ -279,4 +290,45 @@ async function onCheckBtnClick() {
 
 function onSendImgBtnClick() {
 
+}
+
+function revealText() {
+    element.innerHTML = "Text has changed!";
+    // background-color 초록색으로 변경
+    element.style.backgroundColor = "#00FF00";
+}
+
+function getSelectedText() {
+    let selectedText = [];
+
+    // Get all checkboxes within the "textboxes" div
+    let checkboxes = document.querySelectorAll('#textboxes input[type="checkbox"]:checked');
+
+    // Iterate over the selected checkboxes and push their labels into the array
+    checkboxes.forEach(function (checkbox) {
+        let label = checkbox.nextElementSibling.innerText;
+        selectedText.push(label);
+    });
+
+    // Log or use the selected text array as needed
+    console.log(selectedText);
+    return selectedText
+}
+
+
+function getSelectedImg() {
+    let selectedImg = [];
+
+    // Get all checkboxes within the "textboxes" div
+    let checkboxes = document.querySelectorAll('#imgboxes input[type="checkbox"]:checked');
+
+    // Iterate over the selected checkboxes and push their labels into the array
+    checkboxes.forEach(function (checkbox) {
+        let label = checkbox.nextElementSibling.innerText;
+        selectedImg.push(label);
+    });
+
+    // Log or use the selected text array as needed
+    console.log(selectedImg);
+    return selectedImg
 }
