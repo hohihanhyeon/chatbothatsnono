@@ -158,6 +158,7 @@ let trashDateCount = {
     "PERSON": 0,
     "ORGANIZATION": 0,
 }
+let preAnonymizedText = ""
 
 function initlets() {
     origin2trash = {}
@@ -166,6 +167,7 @@ function initlets() {
         "PERSON": 0,
         "ORGANIZATION": 0,
     }
+    preAnonymizedText = ""
 }
 
 function getTrashData(type) {
@@ -272,6 +274,8 @@ async function onSendBtnClick() {
     let anonymizedText = anonymizeEntities(textValue, getSelectedText(), entities)
     console.log("anonymizedText", anonymizedText)
 
+    preAnonymizedText = anonymizedText
+
     // chat 호출
     let res = await chat(anonymizedText)
 
@@ -338,4 +342,12 @@ function getSelectedImg() {
     // Log or use the selected text array as needed
     console.log(selectedImg);
     return selectedImg
+}
+
+export function revealEntities(element) {
+    let messageText = element.querySelector('p').innerText;
+    console.log("p: ", messageText);
+
+    // 익명화된 글로 변경
+    p.innerText = preAnonymizedText
 }
