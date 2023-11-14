@@ -28,10 +28,12 @@ async function analyze_entities(text) {
     let response = await _fetch("analyze_entities", data)
     let entities = response['entities']
 
+    console.log("before entities: ", entities)
     // entity start 기준 정렬
     entities.sort(function (a, b) {
         return a.start - b.start;
     });
+    console.log("after entities: ", entities)
     return entities
 }
 
