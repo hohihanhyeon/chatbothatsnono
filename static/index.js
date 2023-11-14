@@ -240,7 +240,7 @@ async function onSendBtnClick() {
     l(value.value)
     logMsg(value.value, "right")
 
-    let entities = await analyze_entities(value)
+    let entities = await analyze_entities(value.value)
     let highlightenText = highlightEntities(value, entities)
     text().innerHTML = highlightenText
     logMsg(highlightenText, "right")
