@@ -79,7 +79,10 @@ def on_blur_objs():
     data = request.get_json()
     img = data['img']
     format = data['format']
-    objs = data['objs']  # 블러처리 할 객체들
+    objs = data['objs']  # 블러처리 할 객체들ㄷ
+
+    print(f"img: {img[:40]}")
+    print(f"objs: {objs}")
 
     # img_base64 = raw_to_base64(img)
     locs = detect_objs(img, format)

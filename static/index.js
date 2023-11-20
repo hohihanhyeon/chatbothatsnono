@@ -48,7 +48,7 @@ async function chat(text) {
 
 // fecth로 /blur_faces 호출 (POST)
 // img는 base64 인코딩된 이미지
-async function blur_faces(img, format = 'jpg') {
+async function blur_faces(img, format) {
     let data = {
         "img": img,
         "format": format
@@ -59,11 +59,11 @@ async function blur_faces(img, format = 'jpg') {
 
 // fecth로 /blur_objs 호출 (POST)
 // img는 base64 인코딩된 이미지
-async function blur_objs(img) {
+async function blur_objs(img, format, objs) {
     let data = {
         "img": img,
-        "format": "jpg",
-        "objs": getSelectedImg()
+        "format": format,
+        "objs": objs
     }
     const response = await _fetch("blur_objs", data)
     return response['blurred-img']
@@ -404,15 +404,29 @@ function handleFileSelect(event) {
         const reader = new FileReader();
 
         async function onImgLoad() {
-            // 이미지 채팅방에 출력
-            // logImage(reader.result, "right");
-            // 이미지 전송
-            // sendImage(reader.result, sender, "service");
+            // filename과 fileFormat을 서버로 출력
+            console.log("filename: ", fileName)
+            console.log("fileFormat: ", fileFormat)
 
-            // 얼굴 블러
-            // let blurredFace = await blur_faces(reader.result)
-            let blurredFace = await blur_objs(reader.result)
-            logImage(blurredFace, "right");
+            let listToBlur = getSelectedImg()
+            let imgData = reader.result
+
+            // 얼굴이 포함되어 있으면 먼저 얼굴 블러 처리
+            if (listToBlur.includes("face")) {
+                // 얼굴 블러
+                imgData = await blur_faces(imgData, fileFormat)
+                // listToBlur에서 face 제거
+                listToBlur = listToBlur.filter(e => e !== "face")
+            }
+
+            // 나머지 객체 블러
+            // 만약 listToBlur에 아무것도 없으면 그냥 imgData를 그대로 사용
+            if (listToBlur.length > 0) {
+                imgData = await blur_objs(imgData, fileFormat, listToBlur)
+            }
+
+            // 이미지 로그
+            logImage(imgData, "right");
         }
 
         reader.onloadend = onImgLoad
@@ -421,7 +435,6 @@ function handleFileSelect(event) {
         alert('이미지를 선택하세요.');
     }
 }
-
 
 export function logImage(img) {
     let imgElement = document.createElement('img');

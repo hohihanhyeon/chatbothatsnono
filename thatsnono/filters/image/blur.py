@@ -17,6 +17,9 @@ def blur(locs, img_base64, format):
     :param format: 이미지 형식 (ex: png, jpeg)
     """
 
+    # 만약 base64 헤더가 붙어있다면
+    img_base64 = remove_base64_header(img_base64)
+
     # 이미지를 OpenCV 형식으로 변환합니다. (블러 처리를 위해)
     image = base64_to_cv2(img_base64)
 
@@ -62,6 +65,9 @@ def raw_to_base64(img):
     with open(img, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode("utf-8")
     return encoded_string
+
+def remove_base64_header(img):
+    return img.split(",")[1] if "," in img else img
 
 # main
 if __name__ == '__main__':

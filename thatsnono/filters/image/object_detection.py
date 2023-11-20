@@ -2,10 +2,15 @@ import urllib3
 import json
 import base64
 import val
-from thatsnono.filters.image.blur import base64_to_cv2, blur, raw_to_base64
+from thatsnono.filters.image.blur import base64_to_cv2, blur, raw_to_base64, remove_base64_header
 
 
 def detect_objs(img, type):
+    # 만약 base64 헤더가 붙어있다면 제거 (ETRI 객체검출 API는 헤더를 제거해야함)
+    img = remove_base64_header(img)
+
+    print("detect_objs: ", img[:30])
+
     openApiURL = "http://aiopen.etri.re.kr:8000/ObjectDetect"
     accessKey = val.ETRI_ACCESS_KEY
 
